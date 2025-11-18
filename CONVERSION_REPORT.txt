@@ -1,0 +1,245 @@
+===============================================================================
+DICOM Medical Imaging Conversion Report (Version 2.0)
+===============================================================================
+
+Conversion Date: 2025-11-18
+Version: 2.0 (Added MP4 video export feature)
+
+===============================================================================
+I. Project Files
+===============================================================================
+
+1. dicom_converter.py - Main conversion script
+2. requirements.txt - Python dependencies
+3. README.md - English user guide
+4. README_CN.md - Chinese user guide (中文文档)
+5. CLAUDE.md - Technical documentation
+
+===============================================================================
+II. Conversion Results
+===============================================================================
+
+Input Files:
+  - DICOM medical imaging files: 34 files
+
+Output Files:
+  - PNG static images: 12 files (single-frame images)
+  - GIF animations: 22 files (multi-frame sequences, optimized)
+  - MP4 videos: 22 files (multi-frame sequences, smaller files)
+  - TXT metadata: 34 files (one per image)
+
+Total: 90 files
+
+===============================================================================
+III. File Size Comparison
+===============================================================================
+
+【Important Improvement】
+
+Total GIF size: ~196 MB
+Total MP4 size: ~29 MB
+
+MP4 space savings: ~85%
+
+Example comparisons:
+- DCM00001.gif: 4.2 MB  →  DCM00001.mp4: 380 KB  (91% smaller)
+- DCM00004.gif: 32 MB   →  DCM00004.mp4: 5.4 MB  (83% smaller)
+- DCM00007.gif: 5.6 MB  →  DCM00007.mp4: 492 KB  (91% smaller)
+
+Recommendation: Prefer MP4 format for smaller files with same quality
+
+===============================================================================
+IV. How to Use
+===============================================================================
+
+【Basic Usage】
+
+1. Install dependencies (first time):
+   pip3 install -r requirements.txt
+
+2. Convert all files:
+   python3 dicom_converter.py
+
+   Default exports: PNG + GIF + MP4 + TXT
+
+
+【Advanced Options】
+
+3. Export GIF only, no MP4:
+   python3 dicom_converter.py --no-mp4
+
+4. Adjust video frame rate:
+   python3 dicom_converter.py --fps 15  # Faster
+   python3 dicom_converter.py --fps 5   # Slower
+
+5. Use 8-bit compatibility mode:
+   python3 dicom_converter.py --8bit
+
+6. Specify output directory:
+   python3 dicom_converter.py -o my_output
+
+7. Convert single file:
+   python3 dicom_converter.py dicom_data/DCM00000
+
+8. Show all options:
+   python3 dicom_converter.py --help
+
+===============================================================================
+V. Imaging Information
+===============================================================================
+
+Patient: HU LIANG
+Patient ID: 0022341087
+Birth Date: 1982-10-24
+Sex: Male
+
+Study Date: 2025-09-19
+Study Type: Cardiac EP
+Modality: X-Ray Angiography (XA)
+
+Institution: Beijing Chaoyang Hospital
+Equipment: Philips AlluraXper
+Manufacturer: Philips Medical Systems
+
+===============================================================================
+VI. Output Format Description
+===============================================================================
+
+【PNG Files】
+- For single-frame static images
+- Default 16-bit precision for medical quality
+- Image size: 512x512 pixels
+- Supports 8-bit compatibility mode (--8bit)
+
+【GIF Files】
+- For multi-frame dynamic sequences
+- Optimized compression to reduce file size
+- Default frame rate: 10 fps (adjustable)
+- Frame count: 2-150 frames
+- Suitable for viewing in web browsers
+
+【MP4 Files】 ⭐ Recommended
+- For multi-frame dynamic sequences
+- H.264 codec, grayscale mode
+- File size ~15% of GIF
+- Default frame rate: 10 fps (adjustable)
+- Same quality as GIF, but much smaller
+- Compatible with all modern video players
+
+【TXT Files】
+- Contains complete DICOM metadata
+- Includes patient info, study parameters, equipment info, etc.
+- UTF-8 encoded, supports Chinese characters
+
+===============================================================================
+VII. Technical Features
+===============================================================================
+
+✓ Auto-detects and handles JPEG Lossless compression
+✓ Intelligently applies Window/Level settings
+✓ Supports MONOCHROME1 and MONOCHROME2 photometric interpretation
+✓ Auto-processes Rescale Slope and Intercept
+✓ Preserves original pixel value range (16-bit PNG mode)
+✓ Optimized GIF compression to reduce file size
+✓ MP4 video export, saves 85% disk space
+✓ Adjustable video frame rate (5-30 fps)
+✓ Batch conversion with real-time progress
+
+===============================================================================
+VIII. File Reference Table (Partial)
+===============================================================================
+
+Original    Format     Frames  GIF Size  MP4 Size  Savings
+-------------------------------------------------------------------------------
+DCM00000    GIF+MP4      2     400 KB    28 KB     93%
+DCM00001    GIF+MP4     21     4.2 MB    380 KB    91%
+DCM00002    GIF+MP4     14     3.0 MB    552 KB    82%
+DCM00003    PNG          1       -       1.6 MB     -
+DCM00004    GIF+MP4    150      32 MB    5.4 MB    83%
+DCM00005    PNG          1       -       1.6 MB     -
+DCM00006    GIF+MP4    150      32 MB    6.0 MB    81%
+DCM00007    GIF+MP4     28     5.6 MB    492 KB    91%
+DCM00009    GIF+MP4      6     1.2 MB     96 KB    92%
+DCM00012    GIF+MP4    150      32 MB    5.7 MB    82%
+... (34 files total)
+
+Total:
+- Total GIF: ~196 MB
+- Total MP4: ~29 MB
+- Space saved: ~167 MB (85%)
+
+===============================================================================
+IX. Version History
+===============================================================================
+
+【Version 2.0 - 2025-11-18】
+✓ Added MP4 video export feature
+✓ Optimized GIF compression to reduce file size
+✓ Added frame rate adjustment option (--fps)
+✓ Added option to disable MP4 export (--no-mp4)
+✓ Updated all documentation
+✓ Changed default directory names to English
+
+【Version 1.0 - 2025-11-18】
+✓ Initial version with PNG/GIF/TXT export
+✓ Support for JPEG Lossless compressed DICOM
+✓ Automatic metadata extraction
+
+===============================================================================
+X. Important Notes
+===============================================================================
+
+1. Before first run, install dependencies:
+   pip3 install -r requirements.txt
+
+2. If you encounter "Unable to decompress" error:
+   pip3 install pylibjpeg pylibjpeg-libjpeg pylibjpeg-openjpeg opencv-python
+
+3. MP4 files are much smaller, recommend using MP4 format
+
+4. If you only need one format, use --no-mp4 for GIF only
+
+5. 16-bit PNG may not display properly in some viewers,
+   use --8bit for better compatibility
+
+6. Adjusting frame rate changes playback speed and file size
+
+7. This tool is for personal medical record management only,
+   not for diagnosis
+
+===============================================================================
+XI. View Results
+===============================================================================
+
+【View output files】
+ls -lh output/
+
+【Count files】
+find output -name "*.png" | wc -l  # PNG images
+find output -name "*.gif" | wc -l  # GIF animations
+find output -name "*.mp4" | wc -l  # MP4 videos
+find output -name "*.txt" | wc -l  # Metadata
+
+【Compare file sizes】
+du -h output/DCM00001.gif output/DCM00001.mp4
+
+【View metadata】
+cat output/DCM00000.txt | head -30
+
+===============================================================================
+XII. Technical Support
+===============================================================================
+
+For questions, please refer to:
+
+- README.md - English quick user guide
+- README_CN.md - Chinese user guide (中文使用指南)
+- CLAUDE.md - Complete technical documentation
+- requirements.txt - Dependency list
+
+Or run help command:
+  python3 dicom_converter.py --help
+
+===============================================================================
+End of Report
+===============================================================================

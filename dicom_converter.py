@@ -243,8 +243,8 @@ def main():
     parser.add_argument(
         'input_path',
         nargs='?',
-        default='光盘内容',
-        help='DICOM file or directory containing DICOM files (default: 光盘内容)'
+        default='dicom_data',
+        help='DICOM file or directory containing DICOM files (default: dicom_data)'
     )
     parser.add_argument(
         '-o', '--output',

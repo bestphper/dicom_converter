@@ -1,134 +1,209 @@
 # DICOM to Image/Video Converter
 
-Python脚本，用于将DICOM医学影像文件转换为标准图像和视频格式（PNG/GIF/MP4）并提取元数据。
+[中文文档](README_CN.md) | English
 
 A Python script to convert DICOM medical imaging files to standard image and video formats (PNG/GIF/MP4) and extract metadata.
 
-## 快速开始 / Quick Start
+## Features
 
-### 1. 安装依赖 / Install Dependencies
+- ✅ Auto-detects single and multi-frame images
+- ✅ Converts single frames to PNG
+- ✅ Exports multi-frame sequences as both GIF and MP4
+- ✅ MP4 files are 85% smaller than GIF
+- ✅ Optimized GIF compression to reduce file size
+- ✅ Supports 16-bit high-precision PNG output
+- ✅ Extracts complete DICOM metadata
+- ✅ Auto-applies window/level settings
+- ✅ Supports JPEG Lossless compression
+- ✅ Adjustable video frame rate
+
+## Quick Start
+
+### 1. Install Dependencies
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-### 2. 运行转换 / Run Conversion
+### 2. Run Conversion
 
 ```bash
-# 转换所有DICOM文件 / Convert all DICOM files
+# Convert all DICOM files (default: dicom_data/ directory)
 python3 dicom_converter.py
 
-# 转换特定文件 / Convert specific file
-python3 dicom_converter.py "光盘内容/DCM00000" -o my_output
+# Convert specific file
+python3 dicom_converter.py dicom_data/DCM00000 -o my_output
 
-# 使用8位输出（兼容性更好）/ Use 8-bit output (better compatibility)
+# Use 8-bit output for better compatibility
 python3 dicom_converter.py --8bit
 ```
 
-### 3. 查看结果 / View Results
+### 3. View Results
 
-输出文件将保存在 `output/` 目录：
-Output files will be saved in `output/` directory:
+Output files will be saved in the `output/` directory:
 
-- **图像文件 / Image files**: `.png` (静态图像 / static images)
-- **动画文件 / Animation files**: `.gif` (GIF动画 / GIF animations) 和 `.mp4` (MP4视频 / MP4 videos)
-- **元数据文件 / Metadata files**: `.txt` (包含完整的DICOM信息 / contains complete DICOM information)
+- **Image files**: `.png` (static images)
+- **Animation files**: `.gif` (GIF animations) and `.mp4` (MP4 videos)
+- **Metadata files**: `.txt` (complete DICOM information)
 
-## 功能特点 / Features
+## Output Format Description
 
-- ✅ 自动识别单帧和多帧图像 / Auto-detects single and multi-frame images
-- ✅ 单帧图像转换为PNG / Converts single frames to PNG
-- ✅ 多帧图像同时导出GIF和MP4 / Exports multi-frame sequences as both GIF and MP4
-- ✅ MP4文件比GIF小85%，更节省空间 / MP4 files are 85% smaller than GIF
-- ✅ GIF优化压缩，减少文件大小 / Optimized GIF compression to reduce file size
-- ✅ 支持16位高精度PNG输出 / Supports 16-bit high-precision PNG output
-- ✅ 提取完整的DICOM元数据 / Extracts complete DICOM metadata
-- ✅ 自动应用窗宽窗位设置 / Auto-applies window/level settings
-- ✅ 支持JPEG无损压缩 / Supports JPEG Lossless compression
-- ✅ 可调节视频帧率 / Adjustable video frame rate
+### Image and Video Formats
 
-## 输出说明 / Output Description
-
-### 图像和视频格式 / Image and Video Formats
-
-- **PNG**: 用于单帧图像，默认16位精度保证医学影像质量
 - **PNG**: For single-frame images, 16-bit precision by default for medical quality
-- **GIF**: 用于多帧序列（如血管造影动画），优化压缩
 - **GIF**: For multi-frame sequences (like angiography animations), optimized compression
-- **MP4**: 用于多帧序列，文件更小（比GIF小约85%），默认10fps
 - **MP4**: For multi-frame sequences, much smaller files (~85% smaller than GIF), 10fps by default
 
-### 元数据文件 / Metadata Files
+### File Size Comparison
 
-每个图像都有对应的`.txt`文件，包含：
+From testing on 34 DICOM files:
+- **GIF total**: ~196 MB
+- **MP4 total**: ~29 MB
+- **Space saved**: ~167 MB (85%)
+
+Example comparisons:
+- DCM00001: 4.2 MB (GIF) → 380 KB (MP4) - 91% smaller
+- DCM00004: 32 MB (GIF) → 5.4 MB (MP4) - 83% smaller
+- DCM00007: 5.6 MB (GIF) → 492 KB (MP4) - 91% smaller
+
+**Recommendation**: Prefer MP4 format for smaller files with same quality
+
+### Metadata Files
+
 Each image has a corresponding `.txt` file containing:
-
-- 患者信息：姓名、ID、出生日期、性别
 - Patient info: Name, ID, Birth Date, Sex
-- 检查信息：日期、时间、描述
 - Study info: Date, Time, Description
-- 设备信息：制造商、型号、医院
 - Equipment info: Manufacturer, Model, Institution
-- 图像参数：尺寸、位深度、窗宽窗位
 - Image parameters: Dimensions, Bit Depth, Window Settings
 
-## 项目信息 / Project Info
+## Advanced Options
 
-**DICOM文件来源 / DICOM Source**: 医疗影像光盘 / Medical imaging CD
-**影像类型 / Imaging Type**: X射线血管造影 (XA) / X-Ray Angiography (XA)
-**设备 / Equipment**: Philips AlluraXper
-**医院 / Institution**: 北京朝阳医院 / Beijing Chaoyang Hospital
-
-## 高级选项 / Advanced Options
-
-### 只导出GIF，不导出MP4 / Export GIF only, no MP4
+### Export GIF only, no MP4
 
 ```bash
 python3 dicom_converter.py --no-mp4
 ```
 
-### 调整视频帧率 / Adjust video frame rate
+### Adjust video frame rate
 
 ```bash
-# 更快的播放速度 / Faster playback
+# Faster playback
 python3 dicom_converter.py --fps 15
 
-# 更慢的播放速度 / Slower playback
+# Slower playback
 python3 dicom_converter.py --fps 5
 ```
 
-### 8位兼容模式 / 8-bit compatibility mode
+### 8-bit compatibility mode
 
 ```bash
 python3 dicom_converter.py --8bit
 ```
 
-## 常见问题 / FAQ
+### Custom input/output directories
 
-### 如果遇到解压错误 / If you encounter decompression errors
+```bash
+python3 dicom_converter.py /path/to/dicom/files -o /path/to/output
+```
+
+## Command Line Options
+
+```
+usage: dicom_converter.py [-h] [-o OUTPUT] [--8bit] [--no-mp4] [--fps FPS] [input_path]
+
+positional arguments:
+  input_path            DICOM file or directory (default: dicom_data)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output directory (default: output)
+  --8bit                Force 8-bit output (default is 16-bit for high precision)
+  --no-mp4              Disable MP4 video export (only GIF for animations)
+  --fps FPS             Frames per second for GIF and MP4 (default: 10)
+```
+
+## FAQ
+
+### If you encounter decompression errors
 
 ```bash
 pip3 install pylibjpeg pylibjpeg-libjpeg pylibjpeg-openjpeg
 ```
 
-### GIF文件太大怎么办？ / GIF files too large?
-
-推荐使用MP4格式，文件大小只有GIF的15%左右。如果不需要GIF，可以使用 `--no-mp4` 选项只生成MP4。
+### GIF files too large?
 
 Recommend using MP4 format, which is about 85% smaller. If you don't need GIF, use `--no-mp4` to generate MP4 only.
 
-### 查看所有选项 / Show all options
+### Show all options
 
 ```bash
 python3 dicom_converter.py --help
 ```
 
-## 技术支持 / Technical Support
+## Technical Details
 
-如需了解更多技术细节，请查看 `CLAUDE.md` 文件。
-For more technical details, see `CLAUDE.md` file.
+### DICOM Support
 
-## 许可 / License
+- **Compression**: JPEG Lossless, Non-Hierarchical, First-Order Prediction (Process 14)
+- **Modality**: X-Ray Angiography (XA) and other DICOM modalities
+- **Photometric**: MONOCHROME1, MONOCHROME2, RGB
+- **Frames**: Single-frame and multi-frame sequences
 
-本项目仅用于个人医疗档案管理。
-This project is for personal medical record management only.
+### Conversion Process
+
+1. Reads compressed pixel data using pylibjpeg
+2. Applies window/level settings (WindowCenter, WindowWidth) if present
+3. Applies RescaleSlope and RescaleIntercept for Hounsfield units
+4. Handles MONOCHROME1 (inverted) and MONOCHROME2 photometric interpretation
+5. Exports as PNG (16-bit by default), GIF (optimized), and MP4 (H.264 codec)
+6. Extracts all DICOM tags to accompanying TXT files
+
+## Requirements
+
+- Python 3.8+
+- pydicom >= 2.4.0
+- numpy >= 1.24.0, < 2.0
+- Pillow >= 10.0.0
+- pylibjpeg >= 2.0
+- pylibjpeg-libjpeg >= 2.0
+- pylibjpeg-openjpeg >= 2.0
+- opencv-python >= 4.8.0
+
+## Project Structure
+
+```
+.
+├── dicom_converter.py          # Main conversion script
+├── requirements.txt            # Python dependencies
+├── README.md                   # English documentation
+├── README_CN.md                # Chinese documentation
+├── CLAUDE.md                   # Technical documentation
+├── dicom_data/                 # Input DICOM files (default)
+│   ├── DCM00000
+│   ├── DCM00001
+│   └── ...
+└── output/                     # Output directory (created by script)
+    ├── DCM00000.gif
+    ├── DCM00000.mp4
+    ├── DCM00000.txt
+    └── ...
+```
+
+## License
+
+This project is for personal medical record management only, not for diagnosis.
+
+## Version History
+
+**Version 2.0** (2025-11-18)
+- ✓ Added MP4 video export feature
+- ✓ Optimized GIF compression to reduce file size
+- ✓ Added frame rate adjustment option (--fps)
+- ✓ Added option to disable MP4 export (--no-mp4)
+- ✓ Updated all documentation
+
+**Version 1.0** (2025-11-18)
+- ✓ Initial version with PNG/GIF/TXT export
+- ✓ Support for JPEG Lossless compressed DICOM
+- ✓ Automatic metadata extraction

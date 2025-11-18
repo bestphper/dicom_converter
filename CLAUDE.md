@@ -8,13 +8,15 @@ This repository contains DICOM (Digital Imaging and Communications in Medicine) 
 
 ## Directory Structure
 
-- `光盘内容/` - Contains the original DICOM files from the medical imaging CD
+- `dicom_data/` - Contains the original DICOM files from the medical imaging CD
   - `DCM00000` through `DCM00037` - DICOM medical imaging files (X-ray angiography)
   - `DICOMDIR` - DICOM directory file
   - `DicomViewer.exe`, `DcmRead.dll` - Original Windows viewer software (not used)
 
 - `dicom_converter.py` - Main conversion script
 - `requirements.txt` - Python dependencies
+- `README.md` - English documentation
+- `README_CN.md` - Chinese documentation
 - `output/` - Default output directory (created by script)
 
 ## Setup and Installation
@@ -31,7 +33,7 @@ pip3 install -r requirements.txt
 
 ### Convert All DICOM Files
 
-By default, converts all DICOM files in the `光盘内容` directory:
+By default, converts all DICOM files in the `dicom_data` directory:
 
 ```bash
 python3 dicom_converter.py
@@ -45,7 +47,7 @@ This creates an `output/` directory with:
 ### Convert Specific Files
 
 ```bash
-python3 dicom_converter.py "光盘内容/DCM00000" -o custom_output
+python3 dicom_converter.py dicom_data/DCM00000 -o custom_output
 ```
 
 ### Options
@@ -62,7 +64,7 @@ python3 dicom_converter.py "光盘内容/DCM00000" -o custom_output
 python3 dicom_converter.py --8bit
 
 # Convert single file to specific directory
-python3 dicom_converter.py "光盘内容/DCM00001" -o my_images
+python3 dicom_converter.py dicom_data/DCM00001 -o my_images
 
 # Only export GIF, no MP4
 python3 dicom_converter.py --no-mp4
