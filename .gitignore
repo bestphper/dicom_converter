@@ -1,5 +1,15 @@
-# Python
+# Output directories
+output/
+test_output/
+*.pyc
 __pycache__/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
 *.py[cod]
 *$py.class
 *.so
@@ -23,10 +33,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual environments
-.env
-.venv
-
 # IDE
 .vscode/
 .idea/
@@ -34,19 +40,7 @@ wheels/
 *.swo
 *~
 
-# Output directories
-output/
-test_output/
-
-# DICOM files (keep in 光盘内容 only)
-*.dcm
-*.DCM
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.bak
-*.log
+# DICOM files (optional - uncomment if you don't want to commit DICOM data)
+# dicom_data/*.dcm
+# dicom_data/DCM*
+# !dicom_data/README.txt
