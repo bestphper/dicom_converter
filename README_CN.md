@@ -25,20 +25,31 @@ Python脚本，用于将DICOM医学影像文件转换为标准图像和视频格
 pip3 install -r requirements.txt
 ```
 
-### 2. 运行转换
+### 2. 获取示例DICOM文件
+
+**方式A: 生成示例文件（推荐用于测试）**
+```bash
+python3 create_sample_dicom.py
+```
+
+**方式B: 使用您自己的DICOM文件**
+- 将DICOM文件放入 `dicom_data/` 目录
+- 查看 [SAMPLE_DATA.md](SAMPLE_DATA.md) 了解更多选项
+
+### 3. 运行转换
 
 ```bash
 # 转换所有DICOM文件（默认：dicom_data/ 目录）
 python3 dicom_converter.py
 
 # 转换特定文件
-python3 dicom_converter.py dicom_data/DCM00000 -o my_output
+python3 dicom_converter.py dicom_data/SAMPLE_CT.dcm -o my_output
 
 # 使用8位输出（兼容性更好）
 python3 dicom_converter.py --8bit
 ```
 
-### 3. 查看结果
+### 4. 查看结果
 
 输出文件将保存在 `output/` 目录：
 

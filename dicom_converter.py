@@ -284,9 +284,13 @@ def main():
     if input_path.is_file():
         dicom_files = [input_path]
     elif input_path.is_dir():
-        # Find all DICOM files (skip DICOMDIR)
+        # Find all DICOM files (skip DICOMDIR and non-DICOM files)
+        skip_extensions = {'.exe', '.dll', '.inf', '.txt', '.md', '.py', '.DS_Store', '.db'}
         for file_path in sorted(input_path.iterdir()):
-            if file_path.is_file() and file_path.name != 'DICOMDIR' and not file_path.name.endswith('.exe') and not file_path.name.endswith('.dll') and not file_path.name.endswith('.inf'):
+            if file_path.is_file() and file_path.name != 'DICOMDIR':
+                # Skip known non-DICOM files
+                if any(file_path.name.endswith(ext) for ext in skip_extensions) or file_path.name.startswith('.'):
+                    continue
                 dicom_files.append(file_path)
     else:
         print(f"Error: {input_path} does not exist")

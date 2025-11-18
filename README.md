@@ -25,20 +25,31 @@ A Python script to convert DICOM medical imaging files to standard image and vid
 pip3 install -r requirements.txt
 ```
 
-### 2. Run Conversion
+### 2. Get Sample DICOM Files
+
+**Option A: Generate Sample Files (Recommended for testing)**
+```bash
+python3 create_sample_dicom.py
+```
+
+**Option B: Use Your Own DICOM Files**
+- Place your DICOM files in the `dicom_data/` directory
+- See [SAMPLE_DATA.md](SAMPLE_DATA.md) for more options
+
+### 3. Run Conversion
 
 ```bash
 # Convert all DICOM files (default: dicom_data/ directory)
 python3 dicom_converter.py
 
 # Convert specific file
-python3 dicom_converter.py dicom_data/DCM00000 -o my_output
+python3 dicom_converter.py dicom_data/SAMPLE_CT.dcm -o my_output
 
 # Use 8-bit output for better compatibility
 python3 dicom_converter.py --8bit
 ```
 
-### 3. View Results
+### 4. View Results
 
 Output files will be saved in the `output/` directory:
 
